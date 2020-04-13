@@ -2,30 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const Info = (props) => {
-  console.log(props)
-  const { message, type } = props
-  const style = type === "error" ? "info red" : "info"
   return (
-    <div className={style} >
-      <p>{message}</p>
+    <div className="info" >
+      <p>{props.info}</p>
     </div>
   )
-}
-const convToDec = (e) => {
-  if (e.length === 0) {
-    return {}
-  }
-
-  if (!validBinary(e)) {
-    const message = `${e} is not a valid binary number`
-    const type = 'error'
-    return { message, type }
-  }
-
-  const  message = `The binary number ${e} is converted to decimal number ${toDecimal(e)}`
-  const type = 'info'
-  return { message, type }
-
 }
 
 const validBinary = (e) => {
@@ -34,6 +15,10 @@ const validBinary = (e) => {
 }
 
 const toDecimal = (e) => {
+  if (e.length === 0) {
+    return ''
+  }
+
   let result = 0;
   for (let i = 0; i <= e.length; i++) {
     const n = e.charAt(i)
@@ -43,16 +28,30 @@ const toDecimal = (e) => {
 }
 
 function App() {
-  const [binary, setBinary] = useState('')
-  const [info, setInfo] = useState({})
-
-  useEffect(() => {
-    const result = convToDec(binary)
-    setInfo(result)
-  }, [binary])
+  const initConverter = {
+    binary: '',
+    decimal: '',
+    info: '',
+  }
+  const [converter, setConverter] = useState(initConverter)
 
   const handleChange = (event) => {
-    setBinary(event.target.value)
+    const binary = event.target.value
+    if (!validBinary(binary)) {
+      const info = `${binary} is not a valid binary number`
+      setConverter({
+        binary,
+        decimal: '' ,
+        info,
+      })
+      return
+    }
+    const decimal = toDecimal(binary)
+    setConverter({
+      binary,
+      decimal,
+      info: '',
+    })
   }
 
   return (
@@ -61,14 +60,20 @@ function App() {
         <label>Enter a binary number </label>
         <input className="binary-input"
           type="text" 
-          value={binary}
+          value={converter.binary}
           onChange={handleChange}
           autoFocus>
         </input>
         <Info 
-          message={info.message}
-          type={info.type}
+          info={converter.info}
         />
+        <label>Converted decimal </label>
+        <input className="decimal-display"
+          type="text" 
+          value={converter.decimal}
+          readOnly
+        >
+        </input>
       </div>
     </div>
   );

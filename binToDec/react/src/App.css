@@ -9,7 +9,7 @@
   color: white;
 }
 
-.binary-input {
+input {
   width : 80%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -19,13 +19,9 @@
 
 .info {
   max-width: 80%;
+  color: red;
 }
 
 .info > p {
   word-wrap: break-word;
 }
-
-.red {
-  color: red;
-}
-
