@@ -1,4 +1,4 @@
-This app was written by React JS
+# Binary to decimal converter in React JS
 
 ## Available Scripts
 

@@ -1,1 +1,1 @@
-This app was written by Vanilla JS
+# Binary to decimal converter in Vanilla JS
