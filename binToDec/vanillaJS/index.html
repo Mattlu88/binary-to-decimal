@@ -8,9 +8,7 @@
   <body>
     <main>
       <div>
-        <label for="binary">Please enter a binary number: </label>
-      </div>
-      <div>
+        <label for="binary">Please enter a binary number </label>
         <input type="text" id="binary" 
           oninput ="convToDec(this.value)"
           autofocus
@@ -18,6 +16,12 @@
       </div>
       <div>
         <p id="info"></p>
+      </div>
+      <div>
+        <label for="decimal">Converted decimal </label>
+        <input type="text" id="decimal" 
+          readonly
+          name="decimal" >
       </div>
     </main>
   </body>

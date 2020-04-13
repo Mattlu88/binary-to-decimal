@@ -1,22 +1,17 @@
-let info = {}
-
 const convToDec = (e) => {
-  if (e.length === 0) {
-    info.message = ''
-    info.type = ''
-    showInfo(info)
-    return
+
+  const converter = {
+    bianry: e,
+    decimal: '',
+    info: '',
   }
 
-  if (!validBinary(e)) {
-    info.message = `${e} is not a valid binary number.`
-    info.type = 'error'
-    showInfo(info)
-    return
+  if (!validBinary(converter.bianry)) {
+    converter.info = `${e} is not a valid binary number`
+  } else {
+    converter.decimal = toDecimal(converter.bianry)
   }
-  info.message = `The binary number ${e} is converted to decimal number ${toDecimal(e)}`
-  info.type = 'info'
-  showInfo(info)
+  converterView(converter)
 }
 
 const validBinary = (e) => {
@@ -25,6 +20,10 @@ const validBinary = (e) => {
 }
 
 const toDecimal = (e) => {
+  if (e.length === 0) {
+    return ''
+  }
+
   let result = 0;
   for (let i = 0; i <= e.length; i++) {
     const n = e.charAt(i)
@@ -33,8 +32,10 @@ const toDecimal = (e) => {
   return result
 }
 
-const showInfo = (info) => {
+const converterView = (converter) => {
+  const decimalDom = document.getElementById('decimal')
+  decimalDom.value = converter.decimal
+
   const infoDom = document.getElementById('info')
-  infoDom.innerHTML = info.message
-  infoDom.className = info.type
+  infoDom.innerHTML = converter.info
 }
